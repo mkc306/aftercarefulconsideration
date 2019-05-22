@@ -21,6 +21,8 @@ for i in range(len(job_requirements)):
 	for word in job_requirements[i].strip().split(" "):
 		word = word.lower()
 		if word in skills: matches.append(word.lower()) #slow as skills very large 
+	job_name = JOB_SPECS[i].split("_")
+	
 	keywords[JOB_SPECS[i]] = matches
 #pdb.set_trace()
 
