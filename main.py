@@ -9,6 +9,7 @@ from nltk import tokenize
 import spacy
 
 
+#tokenize.sent_tokenize(sentece)
 app = Flask(__name__)
 
 @app.route('/')
@@ -35,7 +36,9 @@ resume_text = [textract.process("Resumes/" + r).decode('utf8').lower() for r in 
 nlp = spacy.load('en')
 
 def get_similarity(resume_text,job_nlp):
-	cleaned_resume_text =  ' '.join(resume_text.split())
+	#pdb.set_trace()
+	cleaned_resume_text =  ' '.join(resume_text)
+
 	doc2 = nlp(cleaned_resume_text)
 	return job_nlp.similarity(doc2)
 
@@ -69,7 +72,8 @@ def get_rankings():
 			applicant_name = resumes[i].split(".")[0]
 			dl_path  ="static/Resumes/" + resumes[i]
 
-			similarity = round(get_similarity(resumes[i],job_nlp) * 100.0,2)
+			similarity = round(get_similarity(resume_text[i],job_nlp) * 100.0,2)
+			#similarity = 0
 			scores.append({"name":applicant_name,"score":score,"path":dl_path,"similarity":similarity})
 		sorted_scores = sorted(scores,key=lambda i: i["score"],reverse=True)
 		sorted_scores = sorted_scores[:10] #only want top 10 scores

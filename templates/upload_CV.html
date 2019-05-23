@@ -3,9 +3,6 @@
   <head>
     <title>Upload CV</title>
 
-    <h1><p style="text-align:center;">After Careful Consideration...</p></h1>
-    <h2><p style="text-align:center;">Upload your resume below</p></h2>
-
     <style>
       html {
         font-family: sans-serif;
@@ -60,9 +57,8 @@
   </head>
 
   <body style="background-color: bisque;">
-      
-      <img src="static/logo.png" >
-      
+          <img src="{{url_for('static',filename='logo.png')}} "  style="margin-left: 30%;margin-right: 30%;width: 40%;margin-top:2%" >
+    <h2><p style="text-align:center;">Upload your resume below</p></h2>
     <form>
         <div>
             <label for="resume_uploads">Choose files to upload (Doc, Docx, Pdf)</label>
@@ -73,11 +69,8 @@
         </div>
         <div>
             <form action="/reportCV.html" method="get">
-                    <button onclick="openAlert()">Submit the resume</button> 
-                
-                
-                
-                
+                    <button onclick="alert('Success!')">Submit the resume</button> 
+                          
                 
             </form>
         </div>
@@ -85,10 +78,6 @@
 
 
     <script>
-        function openAlert() {
-            alert("Success!");
-        }
-        
         var input = document.querySelector('input');
         var preview = document.querySelector('.preview');
         input.style.opacity = 0;

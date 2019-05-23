@@ -20,6 +20,8 @@
 
     <div class="panel-group" id="accordion">
         {% for k,v in results.items() %}
+
+         {% set rowloop = loop %}
           <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -36,8 +38,10 @@
                 <a href="{{item.path}}" download>Download Resume  </a>
             </div>
             <div class="col-sm-2">
+                     <h4> Overall Rating </h4>
                 <div class="c100 p{{item.combined_score|int}} small">
-                    <span> {{item.combined_score}}%</span>
+
+                    <span class="combined_score"> {{item.combined_score}}% </span> 
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
@@ -45,8 +49,8 @@
                 </div>     
         </div>
         <div class="col-sm-6">
-               <a class="button" href="#popup1">Expand</a>
-               <div id="popup1" class="overlay">
+               <a class="button expand" href="#popup{{loop.index+  (rowloop.index-1)*10}}">Expand</a>
+               <div id="popup{{loop.index+  (rowloop.index-1)*10}}" class="overlay">
     <div class="popup">
        <br>
         <a class="close" href="#">&times;</a>
@@ -85,9 +89,35 @@
   {% endfor %}
     </div>
     
-    
-    
-    
-
+</div>
 </body>
+
+<script> 
+
+function hide() {
+    scores = document.getElementsByClassName("combined_score");
+    scores.visibility = "hidden";
+}
+
+    $(document).ready(function() {
+        $('.expand').click(function() {
+            //var id = $(this).id;
+            var id = this.href.split("#")[1]
+            console.log(id)
+            $('.panel-group').hide();
+            //$("#" + id).show();
+            $("#" + id).appendTo('body');
+           //$('div:not(this)').hide(); 
+        });
+        $('.close').click(function() {
+            //var id = $(this).id;
+            //var id = this.href.split("#")[1]
+           // console.log(id)
+            $('.panel-group').show();
+
+        });
+
+    });
+
+</script>
 </html>

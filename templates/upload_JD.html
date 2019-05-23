@@ -2,10 +2,7 @@
 <html>
   <head>
     <title>Upload JD</title>
-
-    <h1><p style="text-align:center;">After Careful Consideration...</p></h1>
-    <h2><p style="text-align:center;">Upload your job description below</p></h2>
-
+     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
     <style>
       html {
         font-family: sans-serif;
@@ -57,6 +54,10 @@
   </head>
 
   <body style="background-color: bisque;">
+    <a href="{{url_for('index')}}">
+    <img src="{{url_for('static',filename='logo.png')}} "  style="margin-left: 30%;margin-right: 30%;width: 40%;margin-top:2%" >
+  </a>
+    <h2><p style="text-align:center;">Upload your job description below</p></h2>
     <form>
         <div>
             <label for="JD_uploads">Choose files to upload (Doc, Docx, Pdf)</label>
@@ -67,12 +68,12 @@
         </div>
         <div>
             <form action="/reportJD.html" method="get">
-                    <button>Submit the job description</button> 
+                    <button onclick="alert('Success!')">Submit the job description</button> 
             </form>
         </div>
     </form>
 
-
+    <a class="button" href='#' style="margin-top: 5%;"> Reports page </a>
     <script>
         var input = document.querySelector('input');
         var preview = document.querySelector('.preview');
