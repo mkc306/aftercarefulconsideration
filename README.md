@@ -8,4 +8,4 @@
 > **Team members:** Sophy Peng | Michael Chan | Mike Arinarkin
 
 
-The model runs through the portal. All needed resumes and JDs are included.
+The model runs through the portal. All needed resumes and JDs are included. It takes a long time to load, but it works.
