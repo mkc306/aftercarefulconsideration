@@ -1,9 +1,8 @@
 Project: #5 - Resume Classification using NLP
 
 
-Project sponsors:
-=
-Sunny Rathee | Prasant Das
+Project sponsors: Sunny Rathee | Prasant Das
+
 Mentors: Monica Chen | Emma Wang | Rachel Mackintosh
 
 Team members: Sophy Peng | Michael Chan | Mike Arinarkin
