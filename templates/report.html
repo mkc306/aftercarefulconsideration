@@ -36,8 +36,8 @@
                 <a href="{{item.path}}" download>Download Resume  </a>
             </div>
             <div class="col-sm-2">
-                <div class="c100 p{{item.percentage|int}} small">
-                    <span> {{item.percentage}}%</span>
+                <div class="c100 p{{item.combined_score|int}} small">
+                    <span> {{item.combined_score}}%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
@@ -53,8 +53,8 @@
         <div class="content">
             <div class="col-sm-6">
                <h3>Keyword Rating</h3>
-               <div class="c100 p90 small">
-                   <span>90%</span>
+               <div class="c100 p{{item.percentage | int }} small">
+                   <span>{{item.percentage}}%</span>
                        <div class="slice">
                            <div class="bar"></div>
                            <div class="fill"></div>
@@ -63,8 +63,8 @@
        </div>
            <div class="col-sm-6">
                <h3>Similarity Rating</h3>
-               <div class="c100 p40 small">
-                   <span>40%</span>
+               <div class="c100 p{{item.similarity|int }} small">
+                   <span>{{item.similarity}}%</span>
                        <div class="slice">
                            <div class="bar"></div>
                            <div class="fill"></div>

@@ -25,27 +25,21 @@ JOB_SPECS = os.listdir("Job_Specs")
 with open('skills.txt') as f:
 	skills = f.read().split('\n')
 	skills = [s.lower() for s in skills]
+
 job_requirements = [textract.process("Job_Specs/" + j).decode('utf8') for j in JOB_SPECS]
 
 resumes = os.listdir('Resumes')
 
 resume_text = [textract.process("Resumes/" + r).decode('utf8').lower() for r in resumes]
 
-def get_similarity():
-	cleaned_text = [' '.join(r.split()) for r in resume_text]
-	#sentences = cleaned_text[0].split('.')
-	cleaned_job_text = [' '.join(j.split()) for j in job_requirements]
-	nlp = spacy.load('en')
-	doc1 = nlp(cleaned_text[1])
-	doc2 = nlp(cleaned_job_text[1])
-	print(doc1.similarity(doc2))
+nlp = spacy.load('en')
 
-	#job_spec_sentences = tokenize.sent_tokenize(cleaned_job_text[0])
-	#resume_sentences = tokenize.sent_tokenize(cleaned_text[0])
+def get_similarity(resume_text,job_nlp):
+	cleaned_resume_text =  ' '.join(resume_text.split())
+	doc2 = nlp(cleaned_resume_text)
+	return job_nlp.similarity(doc2)
 
 
-
-	pdb.set_trace()
 
 def get_rankings():
 	keywords = dict()
@@ -54,29 +48,37 @@ def get_rankings():
 		for word in job_requirements[i].strip().split(" "):
 			word = word.lower()
 			if word in skills: matches.append(word.lower()) #slow as skills very large 
-		job_name = rchop(JOB_SPECS[i].split("_")[2],".docx") #remove suffix and prefix
-		keywords[job_name] = set(matches)
+
+		#job_name = rchop(JOB_SPECS[i].split("_")[2],".docx") #remove suffix and prefix
+		keywords[JOB_SPECS[i]] = set(matches)
 
 	results = dict()
 
 	for job_name,matches in keywords.items():
 		scores = []
 		score = 0
+		job_haha = textract.process("Job_Specs/" + job_name).decode('utf8')
+		cleaned_job_text = ' '.join(job_haha.split())
+		job_nlp = nlp(cleaned_job_text)
 		for i in range(len(resume_text)):
 			for keyword in matches:
 				if keyword in resume_text[i]:
 					score += 1 
 			#score = sum([resume_text[i].count(keyword) for keyword in matches ])
 			#pdb.set_trace()
-			applicant_name = rchop(resumes[i],".docx")
-			file_path  ="static/Resumes/" + resumes[i]
-			scores.append({"name":applicant_name,"score":score,"path":file_path })
+			applicant_name = resumes[i].split(".")[0]
+			dl_path  ="static/Resumes/" + resumes[i]
+
+			similarity = round(get_similarity(resumes[i],job_nlp) * 100.0,2)
+			scores.append({"name":applicant_name,"score":score,"path":dl_path,"similarity":similarity})
 		sorted_scores = sorted(scores,key=lambda i: i["score"],reverse=True)
 		sorted_scores = sorted_scores[:10] #only want top 10 scores
 		highest_score = sorted_scores[0]["score"]
 		for data in sorted_scores:
 			data["percentage"] = round((data["score"] / highest_score) * 100.0,2)
+			data["combined_score"] = round(((data["percentage"] + similarity) / 2) ,2)
 		results[job_name] = sorted_scores
+	#pdb.set_trace()
 	return results
 
 
