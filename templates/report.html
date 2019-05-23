@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <title>Report</title>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="circle.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='circle.css')}}">
         <script src="script.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -17,97 +17,39 @@
     <h1 id="title">Job List</h1>
     <div class="container">
     
-    
+
     <div class="panel-group" id="accordion">
-  <div class="panel panel-default">
+        {% for k,v in results.items() %}
+          <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-        Lead Automation Engineer</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{loop.index}}">
+        {{k}}</a>
       </h4>
     </div>
-    <div id="collapse1" class="panel-collapse collapse in">
+    <div id="collapse{{loop.index}}" class="panel-collapse collapse">
       <div class="panel-body">
+        {% for item in v %}
         <div class="row" id="candBox">
             <div class="col-sm-4">
-                <h3>Candidate 1</h3>
+                <h3>#{{loop.index}} {{item.name}} {{item.top_skill}} </h3>
                 <p>Lorem ipsum dolor..</p>
             </div>
             <div class="col-sm-2">
-                <div class="c100 p90 small">
-                    <span>90%</span>
+                <div class="c100 p{{item.percentage|int}} small">
+                    <span> {{item.percentage}}%</span>
                         <div class="slice">
                             <div class="bar"></div>
                             <div class="fill"></div>
                         </div>
                 </div>
         </div>
-        
 </div>
+     {% endfor %}
         </div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Collapsible Group 2</a>
-      </h4>
-    </div>
-    <div id="collapse2" class="panel-collapse collapse">
-      <div class="panel-body">
-        
-        <div class="row" id="candBox">
-            <div class="col-sm-4">
-                <h3>Candidate 1</h3>
-                <p>Lorem ipsum dolor..</p>
-            </div>
-            <div class="col-sm-2">
-                <div class="c100 p90 small">
-                    <span>90%</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                </div>
-        </div>
-        
-</div>
-        
-        </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Collapsible Group 3</a>
-      </h4>
-    </div>
-    <div id="collapse3" class="panel-collapse collapse">
-      <div class="panel-body">
-        
-        <div class="row" id="candBox">
-            <div class="col-sm-4">
-                <h3>Candidate 1</h3>
-                <p>Lorem ipsum dolor..</p>
-            </div>
-            <div class="col-sm-2">
-                <div class="c100 p90 small">
-                    <span>90%</span>
-                        <div class="slice">
-                            <div class="bar"></div>
-                            <div class="fill"></div>
-                        </div>
-                </div>
-        </div>
-        
-</div>
-        
-        </div>
-    </div>
-  </div>
-</div>
+  {% endfor %}
     </div>
     
     
