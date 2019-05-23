@@ -33,7 +33,7 @@
         <div class="row" id="candBox">
             <div class="col-sm-4">
                 <h3>#{{loop.index}} {{item.name}} {{item.top_skill}} </h3>
-                <p>Lorem ipsum dolor..</p>
+                <a href="{{item.path}}" download>Download Resume  </a>
             </div>
             <div class="col-sm-2">
                 <div class="c100 p{{item.percentage|int}} small">
@@ -42,8 +42,41 @@
                             <div class="bar"></div>
                             <div class="fill"></div>
                         </div>
-                </div>
+                </div>     
         </div>
+        <div class="col-sm-6">
+               <a class="button" href="#popup1">Expand</a>
+               <div id="popup1" class="overlay">
+    <div class="popup">
+       <br>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <div class="col-sm-6">
+               <h3>Keyword Rating</h3>
+               <div class="c100 p90 small">
+                   <span>90%</span>
+                       <div class="slice">
+                           <div class="bar"></div>
+                           <div class="fill"></div>
+                       </div>
+               </div>
+       </div>
+           <div class="col-sm-6">
+               <h3>Similarity Rating</h3>
+               <div class="c100 p40 small">
+                   <span>40%</span>
+                       <div class="slice">
+                           <div class="bar"></div>
+                           <div class="fill"></div>
+                       </div>
+               </div>
+       </div>
+        </div>
+    </div>
+</div>            
+</div>
+
+
 </div>
      {% endfor %}
         </div>

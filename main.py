@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 
 
@@ -28,7 +28,6 @@ with open('skills.txt') as f:
 job_requirements = [textract.process("Job_Specs/" + j).decode('utf8') for j in JOB_SPECS]
 
 resumes = os.listdir('Resumes')
-resumes.remove("Resumes.zip")
 
 resume_text = [textract.process("Resumes/" + r).decode('utf8').lower() for r in resumes]
 
@@ -70,7 +69,8 @@ def get_rankings():
 			#score = sum([resume_text[i].count(keyword) for keyword in matches ])
 			#pdb.set_trace()
 			applicant_name = rchop(resumes[i],".docx")
-			scores.append({"name":applicant_name,"score":score})
+			file_path  ="static/Resumes/" + resumes[i]
+			scores.append({"name":applicant_name,"score":score,"path":file_path })
 		sorted_scores = sorted(scores,key=lambda i: i["score"],reverse=True)
 		sorted_scores = sorted_scores[:10] #only want top 10 scores
 		highest_score = sorted_scores[0]["score"]
@@ -82,7 +82,6 @@ def get_rankings():
 
 @app.route('/reports')
 def report(results=None):
-	get_rankings2()
 	results = get_rankings()
 	return render_template('report.html',results=results)
     
