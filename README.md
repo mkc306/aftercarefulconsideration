@@ -1,4 +1,4 @@
-###### Project: #5 - Resume Classification using NLP
+## Project: #5 - Resume Classification using NLP
 
 
 **Project sponsors:** Sunny Rathee | Prasant Das
