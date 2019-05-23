@@ -54,16 +54,13 @@ def get_rankings():
 			applicant_name = rchop(resumes[i],".docx")
 			scores.append({"name":applicant_name,"score":score})
 		sorted_scores = sorted(scores,key=lambda i: i["score"],reverse=True)
+		sorted_scores = sorted_scores[:10] #only want top 10 scores
+		highest_score = sorted_scores[0]["score"]
+		for data in sorted_scores:
+			data["percentage"] = (data["score"] / highest_score) * 100.0
+		pdb.set_trace()
 		results[job_name] = sorted_scores
-	#print results in descending order 
 	return results
-
-
-
-
-
-
-
 
 
 @app.route('/reports')
@@ -72,3 +69,10 @@ def report(results=None):
 	pdb.set_trace()
 	return render_template('report.html',results=results)
     
+@app.route('/upload/cv')
+def upload_cv():
+	return render_template('upload_CV.html')
+
+@app.route('/upload/jd')
+def upload_jd():
+	return render_template('upload_JD.html')
