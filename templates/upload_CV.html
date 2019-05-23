@@ -53,10 +53,16 @@
         background-color: #0D3F8F;
         color: white;
       }
+        
+
+    
     </style>
   </head>
 
   <body style="background-color: bisque;">
+      
+      <img src="static/logo.png" >
+      
     <form>
         <div>
             <label for="resume_uploads">Choose files to upload (Doc, Docx, Pdf)</label>
@@ -67,13 +73,22 @@
         </div>
         <div>
             <form action="/reportCV.html" method="get">
-                    <button>Submit the resume</button> 
+                    <button onclick="openAlert()">Submit the resume</button> 
+                
+                
+                
+                
+                
             </form>
         </div>
     </form>
 
 
     <script>
+        function openAlert() {
+            alert("Success!");
+        }
+        
         var input = document.querySelector('input');
         var preview = document.querySelector('.preview');
         input.style.opacity = 0;
